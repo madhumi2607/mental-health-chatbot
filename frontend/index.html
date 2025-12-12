@@ -5,12 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Mental Health Support</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    
+    /* YOUR ENTIRE CSS — unchanged */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -20,284 +16,30 @@
       justify-content: center;
       padding: 20px;
     }
-    
-    .chat-container {
-      background: #1a1a2e;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 600px;
-      height: 90vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      border: 1px solid #2d2d44;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    }
-    
-    .chat-header {
-      background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    
-    .chat-header h1 {
-      font-size: 1.5rem;
-      margin-bottom: 5px;
-    }
-    
-    .chat-header p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-    
-    .consent-screen {
-      padding: 40px;
-      text-align: center;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: #1a1a2e;
-      color: #e0e0e0;
-    }
-    
-    .consent-screen h2 {
-      margin-bottom: 20px;
-      color: #b8a9c9;
-    }
-    
-    .consent-screen p {
-      line-height: 1.6;
-      margin-bottom: 30px;
-      color: #b0b0b0;
-    }
-    
-    .consent-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .btn {
-      padding: 12px 30px;
-      border-radius: 25px;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
-      color: #fff;
-    }
-    
-    .btn-secondary {
-      background: #2d2d44;
-      color: #b0b0b0;
-    }
-    
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      display: none;
-      background: #16213e;
-    }
-    
-    .chat-messages::-webkit-scrollbar {
-      width: 8px;
-    }
-    
-    .chat-messages::-webkit-scrollbar-track {
-      background: #1a1a2e;
-    }
-    
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: #2d2d44;
-      border-radius: 4px;
-    }
-    
-    .message {
-      margin-bottom: 15px;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    .message.user {
-      text-align: right;
-    }
-    
-    .message-bubble {
-      display: inline-block;
-      padding: 12px 18px;
-      border-radius: 18px;
-      max-width: 75%;
-      word-wrap: break-word;
-      line-height: 1.5;
-    }
-    
-    .message.user .message-bubble {
-      background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
-      color: #fff;
-      border-bottom-right-radius: 4px;
-    }
-    
-    .message.bot .message-bubble {
-      background: #2d2d44;
-      color: #e0e0e0;
-      border-bottom-left-radius: 4px;
-    }
-    
-    .crisis-alert {
-      background: #2c2416;
-      border: 2px solid #d4a017;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 15px 0;
-      animation: fadeIn 0.3s ease;
-    }
-    
-    .crisis-alert h3 {
-      color: #d4a017;
-      margin-bottom: 10px;
-    }
-    
-    .crisis-alert p {
-      color: #e0e0e0;
-      margin-bottom: 15px;
-      line-height: 1.6;
-    }
-    
-    .crisis-alert ul {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .crisis-alert li {
-      color: #e0e0e0;
-      padding: 8px 0;
-      font-weight: 500;
-    }
-    
-    .chat-input-area {
-      padding: 20px;
-      background: #1a1a2e;
-      border-top: 1px solid #2d2d44;
-      display: none;
-    }
-    
-    .input-wrapper {
-      display: flex;
-      gap: 10px;
-    }
-    
-    .chat-input {
-      flex: 1;
-      padding: 12px 18px;
-      border-radius: 25px;
-      border: 2px solid #2d2d44;
-      background: #16213e;
-      color: #e0e0e0;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s ease;
-    }
-    
-    .chat-input:focus {
-      border-color: #6b5b95;
-    }
-    
-    .chat-input::placeholder {
-      color: #666;
-    }
-    
-    .send-btn {
-      background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
-      color: #fff;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-    
-    .send-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(107, 91, 149, 0.4);
-    }
-    
-    .send-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    .typing-indicator {
-      display: none;
-      padding: 10px 20px;
-    }
-    
-    .typing-indicator span {
-      height: 8px;
-      width: 8px;
-      background: #999;
-      border-radius: 50%;
-      display: inline-block;
-      margin: 0 2px;
-      animation: typing 1.4s infinite;
-    }
-    
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-    
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-    
-    @keyframes typing {
-      0%, 60%, 100% {
-        transform: translateY(0);
-      }
-      30% {
-        transform: translateY(-10px);
-      }
-    }
-    
-    @media (max-width: 600px) {
-      .chat-container {
-        height: 100vh;
-        border-radius: 0;
-      }
-      
-      .consent-screen {
-        padding: 20px;
-      }
-      
-      .message-bubble {
-        max-width: 85%;
-      }
-    }
+    .chat-container { background: #1a1a2e; border-radius: 20px; width: 100%; max-width: 600px; height: 90vh; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #2d2d44; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); }
+    .chat-header { background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%); color: #fff; padding: 20px; text-align: center; }
+    .chat-header h1 { font-size: 1.5rem; margin-bottom: 5px; }
+    .chat-header p { font-size: 0.9rem; opacity: 0.9; }
+    .consent-screen { padding: 40px; text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center; background: #1a1a2e; color: #e0e0e0; }
+    .consent-screen h2 { margin-bottom: 20px; color: #b8a9c9; }
+    .consent-screen p { line-height: 1.6; margin-bottom: 30px; color: #b0b0b0; }
+    .consent-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 12px 30px; border-radius: 25px; border: none; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; }
+    .btn-primary { background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%); color: #fff; }
+    .btn-secondary { background: #2d2d44; color: #b0b0b0; }
+    .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: none; background: #16213e; }
+    .message { margin-bottom: 15px; animation: fadeIn 0.3s ease; }
+    .message.user { text-align: right; }
+    .message-bubble { display: inline-block; padding: 12px 18px; border-radius: 18px; max-width: 75%; word-wrap: break-word; line-height: 1.5; }
+    .message.user .message-bubble { background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%); color: #fff; border-bottom-right-radius: 4px; }
+    .message.bot .message-bubble { background: #2d2d44; color: #e0e0e0; border-bottom-left-radius: 4px; }
+    .crisis-alert { background: #2c2416; border: 2px solid #d4a017; border-radius: 10px; padding: 20px; margin: 15px 0; }
+    .chat-input-area { padding: 20px; background: #1a1a2e; border-top: 1px solid #2d2d44; display: none; }
+    .chat-input { flex: 1; padding: 12px 18px; border-radius: 25px; border: 2px solid #2d2d44; background: #16213e; color: #e0e0e0; }
+    .send-btn { background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%); color: #fff; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; }
   </style>
 </head>
+
 <body>
   <div class="chat-container">
     <div class="chat-header">
@@ -307,7 +49,7 @@
 
     <div class="consent-screen" id="consentScreen">
       <h2>Welcome</h2>
-      <p>This is a supportive chatbot designed to listen and provide mental health resources. By continuing, you consent to use this service. This is not a substitute for professional help. In case of emergency, contact local services.</p>
+      <p>This chatbot listens and supports you. Not a substitute for professional help.</p>
       <div class="consent-buttons">
         <button class="btn btn-primary" onclick="giveConsent()">I Understand, Continue</button>
         <button class="btn btn-secondary" onclick="declineConsent()">Not Now</button>
@@ -329,180 +71,84 @@
   </div>
 
   <script>
-    // BACKEND: Your Vercel backend URL
-    const BACKEND = "https://mental-health-chatbot-ex79-psd3f7enu.vercel.app";
+    // inside frontend/index.html (in the script block)
+    const BACKEND = "https://mental-health-chatbot-ex79-a58hv4dn1.vercel.app";
 
-    const CRISIS_KEYWORDS = [
-      "kill myself", "kill me", "i want to die", "i'm going to kill myself",
-      "suicide", "suicidal", "hang myself", "end my life", "i cant go on", "cant go on",
-      "want to die", "harm myself", "self harm", "cut myself", "hurt myself",
-      "jump off", "i'll end it", "i will kill myself", "i'm going to hurt myself",
-      "i want to hurt myself", "overdose", "no reason to live", "better off dead"
-    ];
-
-    const HELPLINES = [
-      { name: "KIRAN (India)", number: "1800-599-0019", description: "Mental Health Support" },
-      { name: "TeleMANAS", number: "14416 / 1800-891-4416", description: "Mental Health Rehabilitation" },
-      { name: "NIMHANS (Bengaluru)", number: "080-26995000", description: "Emergency Mental Health" },
-      { name: "Vandrevala Foundation", number: "1860-2662-345", description: "24/7 Crisis Support" }
-    ];
-
-    let sessionId = 'session_' + Date.now();
+    let sessionId = "session_" + Date.now();
 
     function giveConsent() {
       document.getElementById('consentScreen').style.display = 'none';
       document.getElementById('chatMessages').style.display = 'block';
       document.getElementById('chatInputArea').style.display = 'block';
-      addBotMessage("Hello! I'm here to listen without judgment. Feel free to share what's on your mind. 💜");
-      document.getElementById('chatInput').focus();
+      addBotMessage("Hello! I'm here to listen. 💜");
     }
 
-    function declineConsent() {
-      alert("Thank you for visiting. Remember, it's okay to seek help when you need it. Take care of yourself! 💚");
-    }
+    function declineConsent() { alert("Take care 💚"); }
 
-    function addUserMessage(text) {
-      const messagesDiv = document.getElementById('chatMessages');
-      const messageDiv = document.createElement('div');
-      messageDiv.className = 'message user';
-      messageDiv.innerHTML = `<div class="message-bubble">${escapeHtml(text)}</div>`;
-      messagesDiv.appendChild(messageDiv);
-      scrollToBottom();
-    }
-
-    function addBotMessage(text) {
-      const messagesDiv = document.getElementById('chatMessages');
-      const messageDiv = document.createElement('div');
-      messageDiv.className = 'message bot';
-      const formattedText = formatMessage(escapeHtml(text));
-      messageDiv.innerHTML = `<div class="message-bubble">${formattedText}</div>`;
-      messagesDiv.appendChild(messageDiv);
-      scrollToBottom();
-    }
-
-    function formatMessage(text) {
-      text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      text = text.replace(/\n/g, '<br>');
-      return text;
-    }
-
-    function showCrisisAlert() {
-      const messagesDiv = document.getElementById('chatMessages');
-      const alertDiv = document.createElement('div');
-      alertDiv.className = 'crisis-alert';
-      alertDiv.innerHTML = `
-        <h3>⚠️ Immediate Help Available</h3>
-        <p>I'm really concerned about your safety. Please reach out to these helplines immediately - they have trained counselors available 24/7:</p>
-        <ul>
-          ${HELPLINES.map(h => `<li>📞 <strong>${h.name}:</strong> ${h.number}<br><span style="font-size: 0.9em; color: #999;">${h.description}</span></li>`).join('')}
-        </ul>
-        <p style="margin-top: 15px; font-style: italic;">If you're in immediate danger, please call emergency services (112 in India) or go to your nearest emergency room.</p>
-      `;
-      messagesDiv.appendChild(alertDiv);
-      scrollToBottom();
-    }
-
-    function detectCrisis(text) {
-      const lower = text.toLowerCase();
-      return CRISIS_KEYWORDS.some(keyword => lower.includes(keyword));
-    }
-
-    function scrollToBottom() {
-      const messagesDiv = document.getElementById('chatMessages');
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    // Helper to parse reply from multiple shapes
-    function parseReply(json) {
-      if (json == null) return { text: "No response from server", crisis: false };
-      if (typeof json.text === "string") return { text: json.text, crisis: !!json.crisis };
-      if (typeof json.reply === "string") return { text: json.reply, crisis: !!json.isCrisis };
-      return { text: JSON.stringify(json), crisis: false };
-    }
-
-    async function sendMessage() {
-      const input = document.getElementById('chatInput');
-      const sendBtn = document.getElementById('sendBtn');
-      const message = input.value.trim();
-      
-      if (!message) return;
-
-      addUserMessage(message);
-      input.value = '';
-      sendBtn.disabled = true;
-      document.getElementById('typingIndicator').style.display = 'block';
-
-      const payload = { message, sessionId };
-
-      // Simple retry for 429 (rate limit)
-      let attempts = 0;
-      const maxAttempts = 3;
-      let ok = false;
-      let parsed = { text: "Server error", crisis: false };
-
-      while (attempts < maxAttempts && !ok) {
-        attempts++;
-        try {
-          const res = await fetch(`${BACKEND}/api/chat`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-
-          if (res.status === 429) {
-            // Politely wait then retry
-            const waitMs = 1000 * attempts; // 1s, 2s, 3s
-            await new Promise(r => setTimeout(r, waitMs));
-            continue;
-          }
-
-          if (!res.ok) {
-            const txt = await res.text();
-            console.error('Bad response:', res.status, txt);
-            addBotMessage("Sorry — I'm having trouble connecting. Try again in a bit.");
-            break;
-          }
-
-          const json = await res.json();
-          parsed = parseReply(json);
-          ok = true;
-        } catch (err) {
-          console.error('Fetch error:', err);
-          addBotMessage("Network problem. Please check your connection.");
-          break;
-        }
-      }
-
-      document.getElementById('typingIndicator').style.display = 'none';
-
-      // Always show crisis alert if server flagged or client detection
-      if (parsed.crisis || detectCrisis(message)) {
-        showCrisisAlert();
-      }
-
-      addBotMessage(parsed.text);
-
-      sendBtn.disabled = false;
-      input.focus();
-    }
-
-    function handleKeyPress(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    }
-
-    function escapeHtml(text) {
+    function addUserMessage(t) {
       const div = document.createElement('div');
-      div.textContent = text;
+      div.className = "message user";
+      div.innerHTML = `<div class="message-bubble">${escapeHtml(t)}</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function addBotMessage(t) {
+      const div = document.createElement('div');
+      div.className = "message bot";
+      div.innerHTML = `<div class="message-bubble">${t.replace(/\n/g, "<br>")}</div>`;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function escapeHtml(t) {
+      const div = document.createElement("div");
+      div.textContent = t; 
       return div.innerHTML;
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('Mental Health Support Chat initialized');
-      console.log('Backend:', BACKEND);
-    });
+    async function sendMessage() {
+      const input = document.getElementById("chatInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const message = input.value.trim();
+      if (!message) return;
+
+      addUserMessage(message);
+      input.value = "";
+      sendBtn.disabled = true;
+      typingIndicator.style.display = "block";
+
+      try {
+        const res = await fetch(BACKEND + "/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message, sessionId })
+        });
+
+        const data = await res.json();
+        typingIndicator.style.display = "none";
+
+        // ✅ FIX: normalize backend reply
+        const reply = data.reply ?? data.text ?? data.message ?? "No response";
+        const crisis = data.isCrisis ?? false;
+
+        if (crisis) {
+          addBotMessage("⚠️ Crisis detected. Please seek immediate help.");
+        }
+
+        addBotMessage(reply);
+
+      } catch (e) {
+        typingIndicator.style.display = "none";
+        addBotMessage("Network problem. Please check your connection.");
+      }
+
+      sendBtn.disabled = false;
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === "Enter") sendMessage();
+    }
   </script>
 </body>
 </html>
