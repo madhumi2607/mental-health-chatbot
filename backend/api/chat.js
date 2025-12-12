@@ -1,5 +1,15 @@
 import { GoogleGenAI } from '@google/genai';
 
+export default async function handler(req, res) {
+  // allow Netlify origin (or '*' for testing)
+  res.setHeader('Access-Control-Allow-Origin', 'https://supportsystemforme.netlify.app'); 
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(204).end();
+
+  // ...existing code...
+}
+
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GOOGLE_API_KEY
 });
