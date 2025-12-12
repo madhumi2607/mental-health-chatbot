@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: #1a1a2e;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+            height: 90vh;
+            max-height: 700px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #2d2d44;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .chat-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .chat-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .consent-screen {
+            padding: 40px;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #1a1a2e;
+        }
+
+        .consent-screen h2 {
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .consent-screen p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .consent-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 91, 149, 0.5);
+        }
+
+        .btn-secondary {
+            background: #2d2d44;
+            color: #b0b0b0;
+        }
+
+        .btn-secondary:hover {
+            background: #3d3d54;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+            background: #16213e;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 18px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
+            color: white;
+        }
+
+        .message.bot .message-bubble {
+            background: #2d2d44;
+            color: #e0e0e0;
+        }
+
+        .crisis-alert {
+            background: #2c2416;
+            border: 2px solid #d4a017;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .crisis-alert h3 {
+            color: #f0c75e;
+            margin-bottom: 10px;
+        }
+
+        .crisis-alert ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .crisis-alert li {
+            color: #f0c75e;
+            margin: 5px 0;
+            font-weight: 500;
+        }
+
+        .crisis-alert p {
+            color: #d4a017;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            background: #1a1a2e;
+            border-top: 1px solid #2d2d44;
+            display: none;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #2d2d44;
+            border-radius: 25px;
+            font-size: 15px;
+            outline: none;
+            transition: border 0.3s;
+            background: #16213e;
+            color: #e0e0e0;
+        }
+
+        .chat-input::placeholder {
+            color: #7a7a8c;
+        }
+
+        .chat-input:focus {
+            border-color: #6b5b95;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #6b5b95 0%, #b8a9c9 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 91, 149, 0.5);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px;
+        }
+
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background: #999;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>🌸 Mental Health Support</h1>
+            <p>A safe space to share your thoughts</p>
+        </div>
+
+        <div class="consent-screen" id="consentScreen">
+            <h2>Welcome</h2>
+            <p>This is a supportive chatbot designed to listen and provide mental health resources. By continuing, you consent to use this service. Please note: This is not a substitute for professional help. In case of emergency, please contact local services.</p>
+            <div class="consent-buttons">
+                <button class="btn btn-primary" onclick="giveConsent()">I Understand, Continue</button>
+                <button class="btn btn-secondary" onclick="declineConsent()">Not Now</button>
+            </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages"></div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="chat-input-area" id="chatInputArea">
+            <div class="input-wrapper">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Share what's on your mind..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const CRISIS_KEYWORDS = [
+            "kill myself", "kill me", "i want to die", "i'm going to kill myself",
+            "suicide", "hang myself", "end my life", "i cant go on", "cant go on",
+            "want to die", "harm myself", "self harm", "jump off", "i'll end it"
+        ];
+
+        const HELPLINES = [
+            { name: "KIRAN (India)", number: "1800-599-0019" },
+            { name: "TeleMANAS", number: "14416 / 1800-891-4416" },
+            { name: "NIMHANS (Bengaluru)", number: "080-26995000" }
+        ];
+
+        let sessionId = 'session_' + Date.now();
+
+        function giveConsent() {
+            document.getElementById('consentScreen').style.display = 'none';
+            document.getElementById('chatMessages').style.display = 'block';
+            document.getElementById('chatInputArea').style.display = 'block';
+            addBotMessage("Hello! I'm here to listen. Feel free to share what's on your mind. 💜");
+        }
+
+        function declineConsent() {
+            alert("Thank you for visiting. Take care of yourself!");
+        }
+
+        function addUserMessage(text) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="message-bubble">${escapeHtml(text)}</div>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addBotMessage(text) {
+            const messagesDiv = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `<div class="message-bubble">${escapeHtml(text)}</div>`;
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function showCrisisAlert() {
+            const messagesDiv = document.getElementById('chatMessages');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'crisis-alert';
+            alertDiv.innerHTML = `
+                <h3>⚠️ Immediate Help Available</h3>
+                <p>I'm really sorry you're feeling this way. Please reach out to these helplines:</p>
+                <ul>
+                    ${HELPLINES.map(h => `<li>📞 ${h.name}: ${h.number}</li>`).join('')}
+                </ul>
+            `;
+            messagesDiv.appendChild(alertDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function detectCrisis(text) {
+            const lower = text.toLowerCase();
+            return CRISIS_KEYWORDS.some(keyword => lower.includes(keyword));
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('sendBtn');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addUserMessage(message);
+            input.value = '';
+            sendBtn.disabled = true;
+
+            // Show typing indicator
+            document.getElementById('typingIndicator').style.display = 'block';
+
+            try {
+                const response = await fetch('http://localhost:3000/api/chat', {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ 
+                        message,
+                        sessionId 
+                    })
+                });
+
+                const data = await response.json();
+                
+                document.getElementById('typingIndicator').style.display = 'none';
+
+                if (data.isCrisis) {
+                    showCrisisAlert();
+                    addBotMessage(data.reply);
+                } else {
+                    addBotMessage(data.reply);
+                }
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('typingIndicator').style.display = 'none';
+                addBotMessage("I'm having trouble connecting right now. Please try again or reach out to a helpline if you need immediate support.");
+            }
+            
+            sendBtn.disabled = false;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
